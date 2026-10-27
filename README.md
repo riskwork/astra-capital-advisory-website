@@ -17,7 +17,7 @@ then open http://localhost:8080
 | Where | What |
 |---|---|
 | `js/site-config.js` | Address, email, phone, social links, client login URL. Empty values show a placeholder or are hidden. |
-| `js/site-config.js` | `heroVideo.enabled`: set to `true` after you add the video (see `FLOW_VIDEO_PROMPT.md`). |
+| `js/site-config.js` | `heroVideo.enabled`: already `true`; the hero intro video is included. |
 | `js/site-config.js` | `formEndpoint`: a URL that accepts a JSON POST so the consultation form sends real requests. Until set, the form runs in demo mode and sends nothing. |
 | `assets/img/placeholder-how-we-work.svg`, `placeholder-why-choose-us.svg` | Replace with your photos. Easiest: change the `src` in `index.html`. |
 | Logo | The wordmark is text (`.brand` in the header and footer of each page). Swap it for an `<img>` if you have a logo. |
@@ -33,7 +33,7 @@ Every `TODO` in the code marks something still to do.
 
 ## Hosting
 
-This repo is deployed with GitHub Pages from the `main` branch root. The hero intro video assets (`assets/video/hero.mp4`, `hero.webm`, `assets/img/hero-poster.jpg`) are binary files not included in this push — add them via the GitHub web UI (drag-and-drop upload on github.com) if you want the animated hero background; until then the hero section shows its gradient background only.
+This repo is deployed with GitHub Pages from the `main` branch root: https://riskwork.github.io/astra-capital-advisory-website/
 
 ## Pages
 
