@@ -23,6 +23,13 @@ window.SITE = {
     webm: 'assets/video/panel-how-we-work.webm'
   },
 
+  // "Why Choose Us" background video.
+  whyVideo: {
+    enabled: true,
+    mp4: 'assets/video/why-choose-us.mp4',
+    webm: 'assets/video/why-choose-us.webm'
+  },
+
   // Consultation form. Paste a form-handling URL (accepts a JSON POST) to send real requests.
   // Empty = demo mode: the form validates and shows a success state but sends nothing.
   formEndpoint: ''
