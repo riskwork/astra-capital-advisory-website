@@ -2,6 +2,7 @@
   'use strict';
   var SITE = window.SITE || {};
   var reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  document.documentElement.classList.add('js-ready');
 
   /* ----- fill details from js/site-config.js ----- */
   document.querySelectorAll('[data-site-text]').forEach(function (el) {
@@ -38,6 +39,57 @@
     toggle.addEventListener('click', function () { setOpen(toggle.getAttribute('aria-expanded') !== 'true'); });
     document.addEventListener('keydown', function (e) { if (e.key === 'Escape') setOpen(false); });
     nav.addEventListener('click', function (e) { if (e.target.closest('a')) setOpen(false); });
+  }
+
+  /* ----- header glass-on-scroll ----- */
+  var header = document.querySelector('.site-header');
+  if (header) {
+    var setScrolled = function () { header.classList.toggle('is-scrolled', window.scrollY > 8); };
+    setScrolled();
+    window.addEventListener('scroll', setScrolled, { passive: true });
+  }
+
+  /* ----- scroll-reveal: fade/rise sections and cards into view, staggered ----- */
+  if (!reduceMotion && 'IntersectionObserver' in window) {
+    var revealGroups = [
+      document.querySelectorAll('.services-grid > *'),
+      document.querySelectorAll('.steps > *'),
+      document.querySelectorAll('.why-list > li'),
+      document.querySelectorAll('.mv > *'),
+      document.querySelectorAll('.panel-photo, .why-photo')
+    ];
+    var revealObserver = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('is-visible');
+          revealObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
+    revealGroups.forEach(function (group) {
+      group.forEach(function (el, i) {
+        el.classList.add('reveal');
+        el.style.setProperty('--reveal-delay', Math.min(i * 70, 280) + 'ms');
+        revealObserver.observe(el);
+      });
+    });
+  }
+
+  /* ----- hero parallax: the backdrop drifts slightly slower than the page scrolls ----- */
+  var heroMedia = document.querySelector('.hero-media');
+  var heroSection = document.querySelector('.hero');
+  if (heroMedia && heroSection && !reduceMotion) {
+    var tickingParallax = false;
+    var applyParallax = function () {
+      tickingParallax = false;
+      var rect = heroSection.getBoundingClientRect();
+      if (rect.bottom < 0 || rect.top > window.innerHeight) return;
+      heroMedia.style.transform = 'translateY(' + (rect.top * 0.12).toFixed(1) + 'px)';
+    };
+    window.addEventListener('scroll', function () {
+      if (!tickingParallax) { tickingParallax = true; requestAnimationFrame(applyParallax); }
+    }, { passive: true });
+    applyParallax();
   }
 
   /* ----- hero video ----- */
