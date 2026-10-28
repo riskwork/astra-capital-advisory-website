@@ -134,6 +134,24 @@
     btn.setAttribute('aria-label', 'Background video not available yet');
   }
 
+  /* ----- "how we work" panel video (simple autoplay loop, no controls) ----- */
+  var panelVideo = document.querySelector('[data-panel-video]');
+  var panelCfg = SITE.panelVideo || {};
+  if (panelVideo && panelCfg.enabled) {
+    [[panelCfg.webm, 'video/webm'], [panelCfg.mp4, 'video/mp4']].forEach(function (s) {
+      if (!s[0]) return;
+      var src = document.createElement('source');
+      src.src = s[0]; src.type = s[1];
+      panelVideo.appendChild(src);
+    });
+    panelVideo.preload = 'auto';
+    panelVideo.load();
+    if (!reduceMotion) {
+      var pp = panelVideo.play();
+      if (pp && pp.catch) pp.catch(function () {});
+    }
+  }
+
   /* ----- consultation form ----- */
   var form = document.getElementById('consult-form');
   if (form) {

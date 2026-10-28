@@ -16,6 +16,13 @@ window.SITE = {
     webm: 'assets/video/hero.webm'
   },
 
+  // "How We Work" panel background video.
+  panelVideo: {
+    enabled: true,
+    mp4: 'assets/video/panel-how-we-work.mp4',
+    webm: 'assets/video/panel-how-we-work.webm'
+  },
+
   // Consultation form. Paste a form-handling URL (accepts a JSON POST) to send real requests.
   // Empty = demo mode: the form validates and shows a success state but sends nothing.
   formEndpoint: ''

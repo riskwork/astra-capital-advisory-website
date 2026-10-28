@@ -209,7 +209,18 @@ h3 { font-size: 20px; font-weight: 400; line-height: 1.2; }
 .step-head { display: flex; align-items: baseline; gap: 12px; margin-bottom: 8px; flex-wrap: wrap; }
 .step-num { font-size: 30px; font-weight: 700; line-height: 1; }
 .step p { max-width: 270px; }
-.panel-photo { width: 100%; height: 100%; min-height: 360px; object-fit: cover; border-radius: 26px; }
+.panel-photo-wrap { position: relative; isolation: isolate; width: 100%; height: 100%; min-height: 360px; border-radius: 26px; overflow: hidden; }
+.panel-photo { position: absolute; inset: 0; z-index: -2; width: 100%; height: 100%; object-fit: cover; }
+.panel-photo-wrap::after {
+  content: ''; position: absolute; inset: 0; z-index: -1;
+  background: linear-gradient(to top, rgba(10, 0, 111, .6), rgba(10, 0, 111, 0) 55%);
+}
+.panel-photo-label {
+  position: absolute; left: 50%; bottom: 26px; transform: translateX(-50%);
+  color: #fff; font-weight: 700; font-size: clamp(22px, 2.4vw, 32px);
+  letter-spacing: .16em; text-transform: uppercase; text-shadow: 0 4px 24px rgba(0, 0, 0, .45);
+  pointer-events: none;
+}
 
 /* why choose us */
 .why { padding: 70px 46px 50px; }
@@ -275,7 +286,7 @@ h3 { font-size: 20px; font-weight: 400; line-height: 1.2; }
   .card, .services-grid .card:nth-child(7), .services-grid .card:nth-child(8) { grid-column: auto; }
   .services-grid .card:nth-child(8) { grid-column: 1 / -1; justify-self: center; width: calc(50% - 11px); }
   .panel { grid-template-columns: 1fr; }
-  .panel-photo { height: 420px; }
+  .panel-photo-wrap { height: 420px; }
   .why-grid { grid-template-columns: 1fr; gap: 36px; }
   .why-photo { max-width: 477px; }
   .footer-grid { grid-template-columns: 1fr 1fr; }
@@ -327,7 +338,7 @@ h3 { font-size: 20px; font-weight: 400; line-height: 1.2; }
   .card { padding: 34px 24px; }
   .panel { padding: 24px 20px; min-height: 0; }
   .steps { grid-template-columns: 1fr; }
-  .panel-photo { height: 320px; }
+  .panel-photo-wrap { height: 320px; }
   .why { padding: 44px 20px 30px; }
   .why h2 { padding-left: 0; }
   .why-list { grid-template-columns: 1fr; }
